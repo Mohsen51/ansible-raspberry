@@ -1,0 +1,10 @@
+all:
+  hosts:
+    'pizero.local':
+    'pi4.local':
+pizero:
+  hosts:
+    'pizero.local':
+pi4:
+  hosts:
+    'pi4.local':

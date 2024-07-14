@@ -1,0 +1,44 @@
+- name: Update all packages
+  ansible.builtin.apt:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - python3
+    - python3-pip
+    - python3-docker
+
+- name: Download get-docker.sh
+  get_url:
+    url: https://get.docker.com
+    dest: /tmp/get-docker.sh
+    mode: '0755'
+
+- name: Execute get-docker.sh
+  command: /tmp/get-docker.sh
+
+- name: Add '{{ ansible_ssh_user }}' to docker group
+  user:
+    name: '{{ ansible_ssh_user }}'
+    groups: docker
+    append: yes
+
+- name: Reconnect to server session
+  meta: reset_connection  #To reset connection immediate after above task
+
+- name: Enable Docker service
+  ansible.builtin.systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Enable containerd service
+  ansible.builtin.systemd:
+    name: containerd
+    enabled: yes
+    state: started

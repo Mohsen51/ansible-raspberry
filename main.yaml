@@ -1,0 +1,12 @@
+- hosts: all
+  remote_user: mohsen
+  become: true
+  roles:
+    - docker
+- hosts: all
+  remote_user: mohsen
+  become: true
+  vars:
+    PIHOLE_WEBPASSWORD: $TEST
+  roles:
+    - pihole
