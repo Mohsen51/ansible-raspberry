@@ -3,10 +3,9 @@
   become: true
   roles:
     - docker
-- hosts: all
+- hosts: pizero
   remote_user: mohsen
-  become: true
   vars:
-    PIHOLE_WEBPASSWORD: $TEST
+    PIHOLE_WEBPASSWORD: CHANGEME
   roles:
     - pihole

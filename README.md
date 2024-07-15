@@ -32,5 +32,9 @@ pip3 install ansible
 To use this project, first update the Ansible inventory file with the hostnames of your Raspberry Pi devices.
 Then, run the Ansible playbook:
 
+Change the pihole interface password in [main.yaml](main.yaml) : `PIHOLE_WEBPASSWORD: CHANGME`
+
+Run ansible :
+
 ```bash
 ansible-playbook -i inventories/inventory.yaml main.yaml

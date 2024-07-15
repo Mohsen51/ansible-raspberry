@@ -1,10 +1,9 @@
 - name: Create the pihole container
-  become_user: '{{ ansible_ssh_user }}'
   community.docker.docker_container:
     name: pihole
     image: pihole/pihole:2024.07.0
     ports:
-      - "8088:80/"
+      - "8080:80"
       - "53:53/tcp"
       - "53:53/udp"
     volumes:
