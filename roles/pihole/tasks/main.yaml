@@ -1,9 +1,9 @@
 - name: Create the pihole container
   community.docker.docker_container:
     name: pihole
-    image: pihole/pihole:2024.07.0
+    image: pihole/pihole:2025.03.0
     ports:
-      - "8080:80"
+      - "443:443/tcp"
       - "53:53/tcp"
       - "53:53/udp"
     volumes:
@@ -13,7 +13,9 @@
       TZ: Europe/Paris
       VIRTUAL_HOST: pi.hole
       PROXY_LOCATION: pi.hole
+      FTLCONF_dns_listeningMode: "all"
+      FTLCONF_misc_etc_dnsmasq_d: "true"
       FTLCONF_LOCAL_IPV4: 127.0.0.1
       PIHOLE_DNS_: 1.1.1.1;1.0.0.1
-      WEBPASSWORD: "{{ PIHOLE_WEBPASSWORD }}"
+      FTLCONF_webserver_api_password: "{{ PIHOLE_WEBPASSWORD }}"
     restart_policy: always
